@@ -41,13 +41,21 @@ public class AccountController {
     @PostMapping("/deposit/{account_id}")
     public ResponseAmount deposit(@PathVariable("account_id") Integer accountId, @RequestBody RequestAmount requestAmount) {
     	Account account = this.accountService.findById(accountId);
-    	
-    	ResponseAmount responseAmount = new ResponseAmount();
-    	
     	this.accountService.update(accountId, requestAmount.getAmount());
     	
+    	ResponseAmount responseAmount = new ResponseAmount();
     	responseAmount.setAmount(account.getAmount());
     	
     	return responseAmount;
-    }   
+    }
+    
+    @PostMapping("withdraw/{account_id}")
+    public ResponseAmount withdraw(@PathVariable("account_id") Integer accountId, @RequestBody RequestAmount requestAmount) {
+    	Account account = this.accountService.findById(accountId);
+    	this.accountService.syukkin(accountId, requestAmount.getAmount());
+    	
+    	ResponseAmount responseAmount = new ResponseAmount();
+    	responseAmount.setAmount(account.getAmount());
+    	return responseAmount;
+    }
 }

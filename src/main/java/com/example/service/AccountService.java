@@ -34,4 +34,12 @@ public class AccountService {
     	account.setAmount(account.getAmount() + deposit);
     	return this.accountRepository.save(account);
     }
+    
+    public Account syukkin(Integer id, Integer withdraw) {
+    	Account account = this.findById(id);
+    	if (account.getAmount() >= withdraw) {
+    		account.setAmount(account.getAmount() - withdraw);
+    	}
+    	return this.accountRepository.save(account);
+    }
 }
