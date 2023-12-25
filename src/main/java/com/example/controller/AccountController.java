@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Account;
+import com.example.resource.RequestAmount;
 import com.example.resource.ResponseAmount;
 import com.example.service.AccountService;
 
@@ -35,4 +37,17 @@ public class AccountController {
     	responseAmount.setAmount(account.getAmount());
     	return responseAmount;
     }
+    
+    @PostMapping("/deposit/{account_id}")
+    public ResponseAmount deposit(@PathVariable("account_id") Integer accountId, @RequestBody RequestAmount requestAmount) {
+    	Account account = this.accountService.findById(accountId);
+    	
+    	ResponseAmount responseAmount = new ResponseAmount();
+    	
+    	this.accountService.update(accountId, requestAmount.getAmount());
+    	
+    	responseAmount.setAmount(account.getAmount());
+    	
+    	return responseAmount;
+    }   
 }

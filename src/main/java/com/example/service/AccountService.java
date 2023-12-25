@@ -28,4 +28,10 @@ public class AccountService {
     	Account account = optionalAccount.get();
     	return account;
     }
+    
+    public Account update(Integer id, Integer deposit) {
+    	Account account = this.findById(id);
+    	account.setAmount(account.getAmount() + deposit);
+    	return this.accountRepository.save(account);
+    }
 }
