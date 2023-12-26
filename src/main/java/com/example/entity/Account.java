@@ -19,6 +19,7 @@ public class Account {
     @Column(name = "AMOUNT")
     private Integer amount;
 
+
     public Integer getId() {
         return this.id;
     }
